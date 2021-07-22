@@ -66,11 +66,89 @@ class Solution:
 # Initial Template for Python 3
 
 # Node Class
+#User function Template for python3
+
+''' Node for linked list:
+'''
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
 
+class Solution:
+    def convert_ll_to_arr(self, head):
+        arr = []
+        temp = head
+        while temp is not None:
+            arr.append(temp.data)
+            temp = temp.next
+        return arr
+   
+   
+    def convert_arr_to_ll(self, arr):
+        head = Node(arr[0])
+        node = head
+        for i in arr[1:]:
+            node.next = Node(i)
+            node = node.next
+        return head
+   
+   
+    def add_arrays(self, first, second):
+        sum_arr = []
+       
+        S = 0
+        carry = 0
+       
+        i = len(first) - 1
+        j = len(second) - 1
+       
+        while i>=0 or j>=0:
+            f_val = first[i] if i >= 0 else 0
+            s_val = second[j] if j >= 0 else 0
+           
+            S = f_val + s_val + carry
+            sum_arr.append(S % 10)
+            carry = S // 10
+           
+            i -= 1
+            j -= 1
+       
+        if carry:
+            sum_arr.append(carry)
+       
+        return sum_arr[::-1]
+   
+   
+    #Function to add two numbers represented by linked list.
+    def addTwoLists(self, first, second):
+        sum_list = None
+       
+        # Conversion of linked list to array
+        first_arr = self.convert_ll_to_arr(first)
+        second_arr = self.convert_ll_to_arr(second)
+       
+        # Addition of two arrays
+        sum_arr = self.add_arrays(first_arr, second_arr)
+       
+        # Conversion of array to linked list
+        sum_list = self.convert_arr_to_ll(sum_arr)
+       
+        return sum_list
+    
+        
+        # code here
+        # return head of sum list
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+# Node Class
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
 # Linked List Class
 class LinkedList:
@@ -87,30 +165,28 @@ class LinkedList:
             self.tail.next = Node(val)
             self.tail = self.tail.next
 
-
 # prints the elements of linked list starting with head
 def printList(n):
     while n:
-        print(n.data, end=' ')
+        print(n.data,end=' ')
         n = n.next
     print()
 
-
 if __name__ == '__main__':
     for _ in range(int(input())):
-
+        
         n = int(input())
-        arr1 = (int(x) for x in input().split())
+        arr1 = ( int(x) for x in input().split() )
         LL1 = LinkedList()
         for i in arr1:
             LL1.insert(i)
-
+        
         m = int(input())
-        arr2 = (int(x) for x in input().split())
+        arr2 = ( int(x) for x in input().split() )
         LL2 = LinkedList()
         for i in arr2:
             LL2.insert(i)
-
+        
         res = Solution().addTwoLists(LL1.head, LL2.head)
         printList(res)
 # } Driver Code Ends
